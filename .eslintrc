@@ -1,0 +1,156 @@
+{
+"rules": {
+"react/jsx-uses-react": "warn",
+"react/jsx-uses-vars": "warn",
+"react/jsx-no-undef": "warn",
+"no-unused-vars": [
+"error",
+{
+"ignoreRestSiblings": true
+}
+],
+"no-undef": "error",
+"valid-jsdoc": "error",
+"comma-dangle": "error",
+"curly": [
+"error",
+"all"
+],
+"quotes": [
+"error",
+"single",
+{
+"avoidEscape": true
+}
+],
+"semi": [
+"error",
+"always"
+],
+"no-extra-semi": "error",
+"operator-linebreak": [
+"error",
+"after"
+],
+"max-len": [
+"error",
+120
+],
+"indent": [
+"error",
+2,
+{
+"SwitchCase": 1
+}
+],
+"no-multi-str": "error",
+"no-mixed-spaces-and-tabs": "error",
+"no-trailing-spaces": "error",
+"space-unary-ops": [
+"error",
+{
+"nonwords": false
+}
+],
+"one-var": [
+"error",
+{
+"uninitialized": "always",
+"initialized": "never"
+}
+],
+"keyword-spacing": [
+"error",
+{}
+],
+"space-infix-ops": "error",
+"space-before-blocks": [
+"error",
+"always"
+],
+"eol-last": "error",
+"space-in-parens": [
+"error",
+"never"
+],
+"no-multiple-empty-lines": "error",
+"no-multi-spaces": "error",
+"key-spacing": [
+"error",
+{
+"beforeColon": false,
+"afterColon": true
+}
+],
+"brace-style": [
+"error",
+"1tbs",
+{
+"allowSingleLine": false
+}
+],
+"object-curly-spacing": [
+"error",
+"always"
+],
+"eqeqeq": [
+"error",
+"smart"
+],
+"no-extra-boolean-cast": "error",
+"object-shorthand": [
+"error",
+"always"
+]
+},
+"env": {
+"node": true,
+"es6": true,
+"browser": true
+},
+"globals": {
+"describe": true,
+"beforeEach": true,
+"it": true,
+"xit": true,
+"window": true,
+"document": true,
+"localStorage": true,
+"Image": true,
+"NREUM": true,
+"rg4js": true,
+"FWS_VERSION": true,
+"Raygun": true,
+"FWS_API_ENV": true
+},
+"plugins": [
+"react"
+],
+"parser": "babel-eslint",
+"parserOptions": {
+"ecmaFeatures": {
+"arrowFunctions": true,
+"binaryLiterals": true,
+"blockBindings": true,
+"classes": true,
+"defaultParams": true,
+"destructuring": true,
+"forOf": true,
+"generators": true,
+"modules": true,
+"objectLiteralComputedProperties": true,
+"objectLiteralDuplicateProperties": true,
+"objectLiteralShorthandMethods": true,
+"objectLiteralShorthandProperties": true,
+"octalLiterals": true,
+"regexUFlag": true,
+"regexYFlag": true,
+"restParams": true,
+"spread": true,
+"superInFunctions": true,
+"templateStrings": true,
+"unicodeCodePointEscapes": true,
+"jsx": true
+}
+}
+}

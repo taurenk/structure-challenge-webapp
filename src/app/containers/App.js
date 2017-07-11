@@ -6,27 +6,34 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Footer from '../components/Footer';
+
+const style = {
+  width: 'auto',
+  'maxWidth': '900px',
+  'marginLeft': 'auto',
+  'marginRight': 'auto',
+  'paddingBottom': '150'
+};
 
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.test = <span>{props.user.email} <img src="https://pixel.nymag.com/imgs/daily/selectall/2017/03/01/01-twitter-egg.w710.h473.2x.jpg/"/> </span>;
   }
 
   render() {
-
     return (
 
       <div>
-        <Navbar inverse staticTop>
+        <Navbar staticTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <a><Link to="/">Structure Challenge</Link></a>
+              <Link to="/">NECF Structure Challenge</Link>
             </Navbar.Brand>
           </Navbar.Header>
-        
+
           <Nav pullRight>
             <NavItem eventKey={1}> <Link to="/stats">My Stats</Link> </NavItem>
             {this.props.isAuthenticated ? (
@@ -36,15 +43,14 @@ class App extends React.Component {
             ) : (
               <NavItem eventKey={4}><Link to="/login">Login</Link></NavItem>
             )}
-
           </Nav>
-
         </Navbar>
 
-        <div className="container">
+        <div className="container" style={style}>
           {/* Each smaller components */}
           {this.props.children}
         </div>
+        <Footer />
       </div>
     );
   }

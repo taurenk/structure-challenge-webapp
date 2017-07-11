@@ -31,3 +31,16 @@ export const fetchUser = (userId) => {
       });
   };
 };
+
+export const registerUser = (payload) => {
+  return (dispatch) => {
+    let client = new APIClient();
+    client.post('users', payload)
+      .then((data)=> {
+        browserHistory.push('/login');
+      })
+      .catch((error)=> {
+        console.log(error);
+      });
+  };
+};

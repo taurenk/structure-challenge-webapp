@@ -1,89 +1,97 @@
 import React from 'react';
 import moment from 'moment';
-
-/*
-import DatePicker from 'react-bootstrap-date-picker';
+import Form from 'react-bootstrap/lib/form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
-*/
+import Col from 'react-bootstrap/lib/Col';
+import Button from 'react-bootstrap/lib/Button';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 class StatsInputForm extends React.Component {
 
   constructor (props) {
     super(props);
+    this.pounds = 0;
+    this.meters = 0;
+    this.trips = 0;
+    this.state = {
+      startDate: moment()
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+
   render() {
-
-    let meters = 0;
-    let pounds = 0;
-    let trips = 0;
-
     return (
-      <form onSubmit={e => {
+      <Form horizontal onSubmit={e => {
         e.preventDefault();
-        // Assemble data into object
-        var input = {
-          length: meters.value,
-          weight: pounds.value,
-          trips: trips.value,
+        let input = {
+          length: this.meters.value,
+          weight: this.pounds.value,
+          trips: this.trips.value,
+          date: this.state.startDate,
           uid: this.props.userId
         };
-        // Call method from parent component to handle submission
         this.props.submitStats(input);
-        // Reset form
         e.target.reset();
       }}
-      className="form-horizontal">
-
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Meters: </label>
-          <div className="col-sm-9">
-            <input
+      >
+        <FormGroup controlId="formHorizontalEmail">
+          <Col sm={12}>
+            <FormControl
               type="text"
-              name="meters"
-              ref={node => meters = node}
-              className="form-control" />
-          </div>
-        </div>
+              placeholder="pounds"
+              inputRef={(input) => this.pounds = input}
+            />
+          </Col>
+        </FormGroup>
 
-        <br/>
-
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Pounds: </label>
-          <div className="col-sm-9">
-            <input
+        <FormGroup controlId="formHorizontalPassword">
+          <Col sm={12}>
+            <FormControl
               type="text"
-              name="pounds"
-              ref={node => pounds = node}
-              className="form-control" />
-          </div>
-        </div>
+              placeholder="meters"
+              inputRef={(input) => this.meters = input}
+            />
+          </Col>
+        </FormGroup>
 
-         <br/>
-         
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Trips: </label>
-          <div className="col-sm-9">
-            <input
+        <FormGroup controlId="formHorizontalPassword">
+          <Col sm={12}>
+            <FormControl
               type="text"
-              name="trips"
-              ref={node => trips = node}
-              className="form-control" />
-          </div>
-        </div>
+              placeholder="trips made"
+              inputRef={(input) => this.trips = input}
+            />
+          </Col>
+        </FormGroup>
+
+        <FormGroup controlId="formHorizontalPassword">
+          <Col sm={12}>
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+            />
+          </Col>
+        </FormGroup>
 
 
-        <div className="input-group">
-          <div className="col-sm-12">
-            <input type="submit" className="btn btn-default"/>
-          </div>
-        </div>
-
-      </form>
-
-
+        <FormGroup>
+          <Col sm={12}>
+            <Button type="submit" bsStyle="primary" block>
+            Submit stats
+            </Button>
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }

@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import LoginForm from '../components/LoginForm';
+
 import * as authActions from '../actions/authActions';
 
 
@@ -18,10 +20,15 @@ class Login extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-12">
-          <h3>Login</h3>
-          <LoginForm submitLogin={this.submitLogin.bind(this)}/>
+        <div className="col-md-4">
         </div>
+        <div className="col-md-4">
+          <LoginForm submitLogin={this.submitLogin.bind(this)}/>
+          <p>Need an account? <Link to="/register">Register Here</Link></p>
+        </div>
+        <div className="col-md-4">
+        </div>
+        
       </div>
     );
   }

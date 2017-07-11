@@ -13,6 +13,7 @@ class LoginForm extends React.Component {
     super(props);
     this.emailInput = null;
     this.passwordInput = null;
+    this.nameInput = null;
   }
 
   handleChange(e) {
@@ -25,13 +26,25 @@ class LoginForm extends React.Component {
       <Form horizontal onSubmit={e => {
         e.preventDefault();
         let input = {
+          name: this.nameInput.value,
           email: this.emailInput.value,
           password: this.passwordInput.value
         };
-        this.props.submitLogin(input);
+        this.props.submitRegister(input);
         e.target.reset();
       }}
       >
+
+        <FormGroup controlId="formHorizontalEmail">
+          <Col sm={12}>
+            <FormControl
+              type="text"
+              placeholder="Name"
+              inputRef={(input) => this.nameInput = input}
+            />
+          </Col>
+        </FormGroup>
+
         <FormGroup controlId="formHorizontalEmail">
           <Col sm={12}>
             <FormControl
@@ -55,13 +68,13 @@ class LoginForm extends React.Component {
         <FormGroup>
           <Col sm={12}>
             <Button type="submit" bsStyle="primary" block>
-            Sign in
+            Register
             </Button>
           </Col>
         </FormGroup>
       </Form>
     );
   }
-};
+}
 
 export default LoginForm;

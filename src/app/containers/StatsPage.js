@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StatsInputForm from '../components/StatsInputForm';
+import StatsDisplay from '../components/StatsDisplay';
 import * as statActions from '../actions/StatActions';
 
 class StatsPage extends React.Component {
@@ -23,22 +24,14 @@ class StatsPage extends React.Component {
           <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
         </div>
         <div className="col-sm-6">
-
           <h3>My Stats</h3>
-          <ul>
-            <ul>
-              {this.props.stats.map((stat, index)=> {
-                return <li key={stat.id}>weight={stat.weight}, length={stat.length}m </li>;
-              })}
-            </ul>
-          </ul>
+          <StatsDisplay stats={this.props.stats} />
         </div>
       </div>
     );
   }
 }
 
-// Maps state from store to props
 const mapStateToProps = (state, ownProps) => {
   return {
     stats: state.stats.userStats,
@@ -46,7 +39,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-// Maps actions to props
 const mapDispatchToProps = (dispatch) => {
   return {
     retrieveUserStats: userId => dispatch(statActions.fetchUserStats(userId)),
@@ -54,5 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-// Use connect to put them together
 export default connect(mapStateToProps, mapDispatchToProps)(StatsPage);
