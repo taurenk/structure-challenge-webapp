@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import RegisterForm from '../components/RegisterForm';
 import * as userActions from '../actions/userActions';
-
+import { Row, Col } from 'antd';
+import 'antd/lib/row/style/css';
 
 class Register extends React.Component {
 
@@ -18,16 +19,15 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4">
-        </div>
-        <div className="col-md-4">
-          <h2>Registration</h2>
+      <Row >
+        <Col span={8}>
+        </Col>
+        <Col span={8}>
           <RegisterForm submitRegister={this.submitRegister.bind(this)}/>
-        </div>
-        <div className="col-md-4">
-        </div>
-      </div>
+        </Col>
+        <Col span={8}>
+        </Col>
+      </Row>
     );
   }
 }

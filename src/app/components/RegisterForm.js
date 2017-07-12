@@ -1,19 +1,16 @@
 import React from 'react';
 
-import Form from 'react-bootstrap/lib/form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
+import { Form, Icon, Input, Button } from 'antd';
+const FormItem = Form.Item;
+import 'antd/lib/form/style/css';
+import 'antd/lib/button/style/css';
+import 'antd/lib/input/style/css';
 
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.emailInput = null;
-    this.passwordInput = null;
-    this.nameInput = null;
   }
 
   handleChange(e) {
@@ -22,59 +19,53 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { getFieldDecorator } = this.props.form;
+
     return (
-      <Form horizontal onSubmit={e => {
+      <Form onSubmit={e => {
         e.preventDefault();
-        let input = {
-          name: this.nameInput.value,
-          email: this.emailInput.value,
-          password: this.passwordInput.value
-        };
-        this.props.submitRegister(input);
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            this.props.submitRegister(values);
+          }
+        });
         e.target.reset();
       }}
-      >
+      className="login-form" >
 
-        <FormGroup controlId="formHorizontalEmail">
-          <Col sm={12}>
-            <FormControl
-              type="text"
-              placeholder="Name"
-              inputRef={(input) => this.nameInput = input}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('name', {
+            rules: [{ required: true, message: 'Please input your username!' }]
+          })(
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+          )}
+        </FormItem>
 
-        <FormGroup controlId="formHorizontalEmail">
-          <Col sm={12}>
-            <FormControl
-              type="text"
-              placeholder="Email"
-              inputRef={(input) => this.emailInput = input}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('email', {
+            rules: [{ required: true, message: 'Please input your email' }]
+          })(
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Email" />
+          )}
+        </FormItem>
 
-        <FormGroup controlId="formHorizontalPassword">
-          <Col sm={12}>
-            <FormControl
-              type="password"
-              placeholder="Password"
-              inputRef={(input) => this.passwordInput = input}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }]
+          })(
+            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+          )}
+        </FormItem>
 
-        <FormGroup>
-          <Col sm={12}>
-            <Button type="submit" bsStyle="primary" block>
+        <FormItem>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
             Register
-            </Button>
-          </Col>
-        </FormGroup>
+          </Button>
+        </FormItem>
+
       </Form>
     );
   }
 }
 
-export default LoginForm;
+export default Form.create()(RegisterForm);

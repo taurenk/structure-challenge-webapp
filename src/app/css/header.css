@@ -1,0 +1,44 @@
+
+#header {
+  transition: opacity 0.5s;
+  background: #fff;
+  height: 70px;
+  margin-bottom: 24px;
+  padding: 0 48px;
+  width: 100%;
+}
+
+#logo {
+  float: left;
+  height: 70px;
+  line-height: 70px;
+}
+
+#logo img {
+  height: 70px;
+  line-height: 70px;
+  width: 40px;
+  margin-right: 8px;
+}
+
+#logo span {
+  float: right;
+  font-size: 16px;
+  font-family: 'Raleway', 'Hiragino Sans GB', sans-serif;
+  height: 80px;
+  line-height: 80px;
+  text-transform: uppercase;
+}
+
+#nav {
+  border: 0;
+  float: right;
+}
+
+#nav li {
+ height: 70px;
+  line-height: 70px;
+  min-width: 72px;
+  text-align: center;
+  border-bottom-width: 3px;
+}

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'antd';
 import StatsInputForm from '../components/StatsInputForm';
 import StatsDisplay from '../components/StatsDisplay';
 import * as statActions from '../actions/StatActions';
@@ -18,15 +19,19 @@ class StatsPage extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-6">
-          <h3>Input Stats</h3>
-          <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
-        </div>
-        <div className="col-sm-6">
-          <h3>My Stats</h3>
-          <StatsDisplay stats={this.props.stats} />
-        </div>
+      <div>
+        <Row>
+          <Col span={10}>
+            <h3>Input Stats</h3>
+            <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
+          </Col>
+          <Col span={4}>
+          </Col>
+          <Col span={10}>
+            <h3>My Stats</h3>
+            <StatsDisplay stats={this.props.stats} />
+          </Col>
+        </Row>
       </div>
     );
   }

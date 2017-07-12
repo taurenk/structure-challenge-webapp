@@ -1,4 +1,6 @@
 import React from 'react';
+import { Table } from 'antd';
+import 'antd/lib/Table/style/css';
 
 class Leadboard extends React.Component {
 
@@ -7,37 +9,25 @@ class Leadboard extends React.Component {
   }
 
   render() {
-
-
+    const columns = [
+      {
+        title: 'rank',
+        dataIndex: 'rank',
+        key: 'rank'
+      },
+      {
+        title: 'name',
+        dataIndex: 'name',
+        key: 'name'
+      },
+      {
+        title: 'total trips',
+        dataIndex: 'totalTrips',
+        key: 'totalTrips'
+      }
+    ];
     return (
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Total Pounds</th>
-            <th>Total Meters</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Taurenk</td>
-            <td>1000</td>
-            <td>1100</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Maria</td>
-            <td>2000</td>
-            <td>3000</td> </tr>
-          <tr> <th scope="row">3</th>
-            <td>Adam</td>
-            <td>100</td>
-            <td>300</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table columns={columns} dataSource={this.props.leaderboard} />
     );
   }
 }

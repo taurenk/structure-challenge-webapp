@@ -1,100 +1,83 @@
 import React from 'react';
-import moment from 'moment';
-import Form from 'react-bootstrap/lib/form';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+//import moment from 'moment';
+
+import { Form, Icon, Input, Button, DatePicker } from 'antd';
+const FormItem = Form.Item;
+import 'antd/lib/form/style/css';
+import 'antd/lib/button/style/css';
+import 'antd/lib/input/style/css';
+import 'antd/lib/date-picker/style/css';
 
 
 class StatsInputForm extends React.Component {
 
   constructor (props) {
     super(props);
-    this.pounds = 0;
-    this.meters = 0;
-    this.trips = 0;
-    this.state = {
-      startDate: moment()
-    };
-    this.handleChange = this.handleChange.bind(this);
   }
-
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
-  }
-
 
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <Form horizontal onSubmit={e => {
+      <Form onSubmit={e => {
         e.preventDefault();
-        let input = {
-          length: this.meters.value,
-          weight: this.pounds.value,
-          trips: this.trips.value,
-          date: this.state.startDate,
-          uid: this.props.userId
-        };
-        this.props.submitStats(input);
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            let input = {
+              ...values,
+              date: values['date'].format('YYYY-MM-DD'),
+              uid: this.props.userId
+            };
+            console.log('Received values of form: ', input);
+            this.props.submitStats(input);
+          }
+        });
         e.target.reset();
       }}
-      >
-        <FormGroup controlId="formHorizontalEmail">
-          <Col sm={12}>
-            <FormControl
-              type="text"
-              placeholder="pounds"
-              inputRef={(input) => this.pounds = input}
-            />
-          </Col>
-        </FormGroup>
+      className="login-form" >
 
-        <FormGroup controlId="formHorizontalPassword">
-          <Col sm={12}>
-            <FormControl
-              type="text"
-              placeholder="meters"
-              inputRef={(input) => this.meters = input}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('weight', {
+            rules: [{ required: true, message: 'Please input sandbag used!' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Sandbag Weight" />
+          )}
+        </FormItem>
 
-        <FormGroup controlId="formHorizontalPassword">
-          <Col sm={12}>
-            <FormControl
-              type="text"
-              placeholder="trips made"
-              inputRef={(input) => this.trips = input}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('length', {
+            rules: [{ required: true, message: 'Please input carry length' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Carry Length" />
+          )}
+        </FormItem>
 
-        <FormGroup controlId="formHorizontalPassword">
-          <Col sm={12}>
-            <DatePicker
-              selected={this.state.startDate}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
+        <FormItem>
+          {getFieldDecorator('trips', {
+            rules: [{ required: true, message: 'Please input number of trips made' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} type="user" placeholder="# of Trips" />
+          )}
+        </FormItem>
 
+        <FormItem >
+          {getFieldDecorator('date', {
+            type: 'object', required: true, message: 'Please select date!'
+          })(
+            <DatePicker />
+          )}
+        </FormItem>
 
-        <FormGroup>
-          <Col sm={12}>
-            <Button type="submit" bsStyle="primary" block>
-            Submit stats
-            </Button>
-          </Col>
-        </FormGroup>
+        <FormItem>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+            Submit Stats
+          </Button>
+        </FormItem>
+
       </Form>
+
     );
   }
 }
 
 
-export default StatsInputForm;
+export default Form.create()(StatsInputForm);

@@ -1,5 +1,6 @@
 import React from 'react';
-import Table from 'react-bootstrap/lib/Table';
+import { Table } from 'antd';
+import 'antd/lib/Table/style/css';
 
 class StatsTable extends React.Component {
 
@@ -8,29 +9,33 @@ class StatsTable extends React.Component {
   }
 
   render() {
+
+    const columns = [
+      {
+        title: 'pounds',
+        dataIndex: 'weight',
+        key: 'weight'
+      },
+      {
+        title: 'Trips',
+        dataIndex: 'trips',
+        key: 'trips'
+      },
+      {
+        title: 'Meters',
+        dataIndex: 'length',
+        key: 'length'
+      },
+      {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'date'
+      }
+    ];
+
+
     return (
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Pounds</th>
-            <th>Trips</th>
-            <th>Meters</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.stats.map((stat, index)=> {
-            return <tr>
-              <td>{stat.id}</td>
-              <td>{stat.weight}</td>
-              <td>{stat.trips}</td>
-              <td>{stat.length} meters</td>
-              <td>{stat.date}</td>
-            </tr>;
-          })}
-        </tbody>
-      </Table>
+      <Table columns={columns} dataSource={this.props.stats} />
     );
   }
 }

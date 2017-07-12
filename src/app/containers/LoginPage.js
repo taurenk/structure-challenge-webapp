@@ -3,8 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import LoginForm from '../components/LoginForm';
-
 import * as authActions from '../actions/authActions';
+
+import { Row, Col } from 'antd';
+import 'antd/lib/row/style/css';
 
 
 class Login extends React.Component {
@@ -19,17 +21,16 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4">
-        </div>
-        <div className="col-md-4">
+      <Row >
+        <Col span={8}>
+        </Col>
+        <Col span={8}>
           <LoginForm submitLogin={this.submitLogin.bind(this)}/>
-          <p>Need an account? <Link to="/register">Register Here</Link></p>
-        </div>
-        <div className="col-md-4">
-        </div>
-        
-      </div>
+          <p> <Link to="/register">Need an account? Register now</Link></p>
+        </Col>
+        <Col span={8}>
+        </Col>
+      </Row>
     );
   }
 }

@@ -1,56 +1,113 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
-import NavDropdown from 'react-bootstrap/lib/NavDropdown';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import Footer from '../components/Footer';
-
-const style = {
-  width: 'auto',
-  'maxWidth': '900px',
-  'marginLeft': 'auto',
-  'marginRight': 'auto',
-  'paddingBottom': '150'
-};
-
+import { Layout, Menu } from 'antd';
+import { Row, Col, Icon } from 'antd';
+const { Content, Footer } = Layout;
+import 'antd/lib/menu/style/css';
+import 'antd/lib/row/style/css';
+import '../css/header.css';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      current: 'home'
+    };
+
+  }
+
+  handleClick (e) {
+    console.log('click ', e);
+    this.setState({
+      current: e.key
+    });
   }
 
   render() {
+
     return (
 
       <div>
-        <Navbar staticTop>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">NECF Structure Challenge</Link>
-            </Navbar.Brand>
-          </Navbar.Header>
+        <div id="header">
+          <Link to={'/'} id="logo">
+            <img alt="logo" src="https://t.alipayobjects.com/images/rmsweb/T1B9hfXcdvXXXXXXXX.svg" />
+            <span>NECF Challenge</span>
+          </Link>
 
-          <Nav pullRight>
-            <NavItem eventKey={1}> <Link to="/stats">My Stats</Link> </NavItem>
+          <Menu
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+            id="nav"
+          >
+            <Menu.Item key="home">
+              <Link to="/">Home</Link>
+            </Menu.Item>
+
             {this.props.isAuthenticated ? (
-              <NavDropdown eventKey={3} title={this.props.user.email} id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}><Link to="/logout">Logout</Link> </MenuItem>
-              </NavDropdown>
-            ) : (
-              <NavItem eventKey={4}><Link to="/login">Login</Link></NavItem>
-            )}
-          </Nav>
-        </Navbar>
+              <Menu.Item key="leaderboard">
+                <Link to="/leaderboard">Leaderboard</Link>
+              </Menu.Item>
+            ) : null}
 
-        <div className="container" style={style}>
-          {/* Each smaller components */}
-          {this.props.children}
+            {this.props.isAuthenticated ? (
+              <Menu.Item key="stats">
+                <Link to="/stats">My Stats</Link>
+              </Menu.Item>
+            ) : null}
+
+
+            {this.props.isAuthenticated ? (
+              <Menu.Item key="logout">
+                <Link to="/logout">Logout</Link>
+              </Menu.Item>
+            ) : (
+              <Menu.Item key="login">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+            )}
+
+
+          </Menu>
+
         </div>
-        <Footer />
+
+        <Content style={{ padding: '0 50px' }}>
+          <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+            {this.props.children}
+          </div>
+        </Content>
+
+        <Footer style={{ textAlign: 'center' }}>
+
+
+          <Row>
+            <Col span={12}>
+              <b><Icon type="github" /> GitHub</b>
+              <ul>
+                <li>
+                  <a target="_blank " href="https://github.com/taurenk/structure-challenge-webapp"><span>Repository</span></a>
+                </li>
+                <li>
+                  <a target="_blank " href="https://github.com/taurenk/structure-challenge-api"><span>API</span></a>
+                </li>
+              </ul>
+            </Col>
+            <Col span={12}>
+              <b><Icon type="link" /> About</b>
+              <ul>
+                <li>
+                  Please contact tauren.kristich@gmail.com
+                </li>
+              </ul>
+            </Col>
+          </Row>
+
+
+        </Footer>
+
       </div>
     );
   }

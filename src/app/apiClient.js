@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { readCookie } from './utils';
-const apiBase = 'http://localhost:1337/v1/';
-//const apiBase = 'http://ec2-34-205-31-116.compute-1.amazonaws.com:1337/v1/';
+//const apiBase = 'http://localhost:1337/v1/';
+const apiBase = 'http://ec2-34-205-31-116.compute-1.amazonaws.com:1337/v1/';
 
 export default class APIClient {
 

@@ -15,9 +15,14 @@ if (authToken) {
   store.dispatch(login(authToken));
 }
 
+import { LocaleProvider } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
+
 render(
-  <Provider store={store}>
-    <Router routes={routes} history={browserHistory} />
-  </Provider>,
+  <LocaleProvider locale={enUS}>
+    <Provider store={store}>
+      <Router routes={routes} history={browserHistory} />
+    </Provider>
+  </LocaleProvider>,
   document.getElementById('root')
 );
