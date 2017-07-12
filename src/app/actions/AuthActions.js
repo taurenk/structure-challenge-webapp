@@ -58,7 +58,6 @@ export const attemptLogin = (payload) => {
   };
 };
 
-
 export const attemptLogout = () => {
   removeCookie(JWT_COOKIE_NAME);
   return (dispatch) => {

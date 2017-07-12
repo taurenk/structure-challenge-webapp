@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'antd';
 import StatsInputForm from '../components/StatsInputForm';
+import StatsDisplay from '../components/StatsDisplay';
 import * as statActions from '../actions/StatActions';
 
 class StatsPage extends React.Component {
@@ -17,28 +19,24 @@ class StatsPage extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-sm-6">
-          <h3>Input Stats</h3>
-          <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
-        </div>
-        <div className="col-sm-6">
-
-          <h3>My Stats</h3>
-          <ul>
-            <ul>
-              {this.props.stats.map((stat, index)=> {
-                return <li key={stat.id}>weight={stat.weight}, length={stat.length}m </li>;
-              })}
-            </ul>
-          </ul>
-        </div>
+      <div>
+        <Row>
+          <Col span={10}>
+            <h3>Input Stats</h3>
+            <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
+          </Col>
+          <Col span={4}>
+          </Col>
+          <Col span={10}>
+            <h3>My Stats</h3>
+            <StatsDisplay stats={this.props.stats} />
+          </Col>
+        </Row>
       </div>
     );
   }
 }
 
-// Maps state from store to props
 const mapStateToProps = (state, ownProps) => {
   return {
     stats: state.stats.userStats,
@@ -46,7 +44,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-// Maps actions to props
 const mapDispatchToProps = (dispatch) => {
   return {
     retrieveUserStats: userId => dispatch(statActions.fetchUserStats(userId)),
@@ -54,5 +51,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-// Use connect to put them together
 export default connect(mapStateToProps, mapDispatchToProps)(StatsPage);

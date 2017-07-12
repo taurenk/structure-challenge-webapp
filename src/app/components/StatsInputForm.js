@@ -1,12 +1,13 @@
 import React from 'react';
-import moment from 'moment';
+//import moment from 'moment';
 
-/*
-import DatePicker from 'react-bootstrap-date-picker';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-*/
+import { Form, Icon, Input, Button, DatePicker } from 'antd';
+const FormItem = Form.Item;
+import 'antd/lib/form/style/css';
+import 'antd/lib/button/style/css';
+import 'antd/lib/input/style/css';
+import 'antd/lib/date-picker/style/css';
+
 
 class StatsInputForm extends React.Component {
 
@@ -15,78 +16,68 @@ class StatsInputForm extends React.Component {
   }
 
   render() {
-
-    let meters = 0;
-    let pounds = 0;
-    let trips = 0;
-
+    const { getFieldDecorator } = this.props.form;
     return (
-      <form onSubmit={e => {
+      <Form onSubmit={e => {
         e.preventDefault();
-        // Assemble data into object
-        var input = {
-          length: meters.value,
-          weight: pounds.value,
-          trips: trips.value,
-          uid: this.props.userId
-        };
-        // Call method from parent component to handle submission
-        this.props.submitStats(input);
-        // Reset form
+        this.props.form.validateFields((err, values) => {
+          if (!err) {
+            let input = {
+              ...values,
+              date: values['date'].format('YYYY-MM-DD'),
+              uid: this.props.userId
+            };
+            console.log('Received values of form: ', input);
+            this.props.submitStats(input);
+          }
+        });
         e.target.reset();
       }}
-      className="form-horizontal">
+      className="login-form" >
 
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Meters: </label>
-          <div className="col-sm-9">
-            <input
-              type="text"
-              name="meters"
-              ref={node => meters = node}
-              className="form-control" />
-          </div>
-        </div>
+        <FormItem>
+          {getFieldDecorator('weight', {
+            rules: [{ required: true, message: 'Please input sandbag used!' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Sandbag Weight" />
+          )}
+        </FormItem>
 
-        <br/>
+        <FormItem>
+          {getFieldDecorator('length', {
+            rules: [{ required: true, message: 'Please input carry length' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Carry Length" />
+          )}
+        </FormItem>
 
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Pounds: </label>
-          <div className="col-sm-9">
-            <input
-              type="text"
-              name="pounds"
-              ref={node => pounds = node}
-              className="form-control" />
-          </div>
-        </div>
+        <FormItem>
+          {getFieldDecorator('trips', {
+            rules: [{ required: true, message: 'Please input number of trips made' }]
+          })(
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} type="user" placeholder="# of Trips" />
+          )}
+        </FormItem>
 
-         <br/>
-         
-        <div className="input-group">
-          <label className="col-sm-3 control-label">Trips: </label>
-          <div className="col-sm-9">
-            <input
-              type="text"
-              name="trips"
-              ref={node => trips = node}
-              className="form-control" />
-          </div>
-        </div>
+        <FormItem >
+          {getFieldDecorator('date', {
+            type: 'object', required: true, message: 'Please select date!'
+          })(
+            <DatePicker />
+          )}
+        </FormItem>
 
+        <FormItem>
+          <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
+            Submit Stats
+          </Button>
+        </FormItem>
 
-        <div className="input-group">
-          <div className="col-sm-12">
-            <input type="submit" className="btn btn-default"/>
-          </div>
-        </div>
-
-      </form>
-
+      </Form>
 
     );
   }
 }
 
 
-export default StatsInputForm;
+export default Form.create()(StatsInputForm);

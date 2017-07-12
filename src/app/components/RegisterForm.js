@@ -7,18 +7,15 @@ import 'antd/lib/button/style/css';
 import 'antd/lib/input/style/css';
 
 
-class LoginForm extends React.Component {
+class RegisterForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.emailInput = null;
-    this.passwordInput = null;
   }
 
   handleChange(e) {
     console.log(e);
     this.setState({ value: e.target.value });
-
   }
 
   render() {
@@ -29,16 +26,21 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
-            this.props.submitLogin(values);
+            this.props.submitRegister(values);
           }
         });
-
-        console.log(this.props.form);
         e.target.reset();
       }}
       className="login-form" >
-      
+
+        <FormItem>
+          {getFieldDecorator('name', {
+            rules: [{ required: true, message: 'Please input your username!' }]
+          })(
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+          )}
+        </FormItem>
+
         <FormItem>
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please input your email' }]
@@ -57,7 +59,7 @@ class LoginForm extends React.Component {
 
         <FormItem>
           <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
-            Log in
+            Register
           </Button>
         </FormItem>
 
@@ -66,4 +68,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default Form.create()(LoginForm);
+export default Form.create()(RegisterForm);
