@@ -1,8 +1,9 @@
 import React from 'react';
 //import moment from 'moment';
 
-import { Form, Icon, Input, Button, DatePicker } from 'antd';
+import { Form, Icon, Input, Button, DatePicker, Select } from 'antd';
 const FormItem = Form.Item;
+const Option = Select.Option;
 import 'antd/lib/form/style/css';
 import 'antd/lib/button/style/css';
 import 'antd/lib/input/style/css';
@@ -11,16 +12,24 @@ import 'antd/lib/date-picker/style/css';
 
 class StatsInputForm extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
+
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const selectedEvent = this.props.form.getFieldValue('event');
+
+    let handleSelectChange = (value) => {
+      this.props.form.setFieldsValue({ event: value });
+    };
+
     return (
       <Form onSubmit={e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+
           if (!err) {
             let input = {
               ...values,
@@ -29,11 +38,29 @@ class StatsInputForm extends React.Component {
             };
             console.log('Received values of form: ', input);
             this.props.submitStats(input);
+            this.props.form.resetFields();
           }
         });
-        e.target.reset();
       }}
       className="login-form" >
+
+        <FormItem>
+          {getFieldDecorator('event', {
+            rules: [{ required: true, message: 'Please select an event.' }],
+            initialValue: 'sandbagCarry'
+          }
+          )(
+            <Select
+              placeholder="Select an event"
+              onChange={handleSelectChange}
+            >
+              <Option value="sandbagSquat">Sandbag Squat</Option>
+              <Option value="sandbagPress">Sandbag Press</Option>
+              <Option value="sandbagCarry">Sandbag Carry</Option>
+            </Select>
+          )}
+        </FormItem>
+
 
         <FormItem>
           {getFieldDecorator('weight', {
@@ -43,25 +70,30 @@ class StatsInputForm extends React.Component {
           )}
         </FormItem>
 
+        {selectedEvent === 'sandbagCarry' ? (
+
+          <FormItem>
+            {getFieldDecorator('length', {
+              rules: [{ required: true, message: 'Please input carry length' }]
+            })(
+              <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Carry Length" />
+            )}
+          </FormItem>
+
+        ) : null }
+
         <FormItem>
-          {getFieldDecorator('length', {
-            rules: [{ required: true, message: 'Please input carry length' }]
+          {getFieldDecorator('reps', {
+            rules: [{ required: true, message: 'Please input number of reps' }]
           })(
-            <Input prefix={<Icon style={{ fontSize: 13 }} />} placeholder="Carry Length" />
+            <Input prefix={<Icon style={{ fontSize: 13 }} />} type="user" placeholder="Number of reps OR number of trips" />
           )}
         </FormItem>
 
-        <FormItem>
-          {getFieldDecorator('trips', {
-            rules: [{ required: true, message: 'Please input number of trips made' }]
-          })(
-            <Input prefix={<Icon style={{ fontSize: 13 }} />} type="user" placeholder="# of Trips" />
-          )}
-        </FormItem>
 
         <FormItem >
           {getFieldDecorator('date', {
-            type: 'object', required: true, message: 'Please select date!'
+            rules: [{ required: true, message: 'Please input number of reps' }]
           })(
             <DatePicker />
           )}

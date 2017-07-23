@@ -12,14 +12,19 @@ class StatsTable extends React.Component {
 
     const columns = [
       {
-        title: 'pounds',
+        title: 'Event',
+        dataIndex: 'event',
+        key: 'event'
+      },
+      {
+        title: 'Weight',
         dataIndex: 'weight',
         key: 'weight'
       },
       {
-        title: 'Trips',
-        dataIndex: 'trips',
-        key: 'trips'
+        title: 'Reps',
+        dataIndex: 'reps',
+        key: 'reps'
       },
       {
         title: 'Meters',

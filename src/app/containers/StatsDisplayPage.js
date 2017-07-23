@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
-import StatsInputForm from '../components/StatsInputForm';
 import StatsDisplay from '../components/StatsDisplay';
 import * as statActions from '../actions/StatActions';
+import { Row, Col } from 'antd';
+import 'antd/lib/menu/style/css';
 
 class StatsPage extends React.Component {
 
@@ -19,20 +19,16 @@ class StatsPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row>
-          <Col span={10}>
-            <h3>Input Stats</h3>
-            <StatsInputForm submitStats={this.submitStats.bind(this)} userId={this.props.user.id} />
-          </Col>
-          <Col span={4}>
-          </Col>
-          <Col span={10}>
-            <h3>My Stats</h3>
-            <StatsDisplay stats={this.props.stats} />
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <Col span={6}>
+        </Col>
+        <Col span={12}>
+          <h3>My Stats</h3>
+          <StatsDisplay stats={this.props.stats} />
+        </Col>
+        <Col span={6}>
+        </Col>
+      </Row>
     );
   }
 }

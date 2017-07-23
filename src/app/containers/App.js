@@ -2,11 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Layout, Menu } from 'antd';
+
 import { Row, Col, Icon } from 'antd';
 const { Content, Footer } = Layout;
 import 'antd/lib/menu/style/css';
 import 'antd/lib/row/style/css';
 import '../css/header.css';
+
+import 'antd/lib/layout/style/css';
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 class App extends React.Component {
 
@@ -43,32 +48,35 @@ class App extends React.Component {
             id="nav"
           >
             <Menu.Item key="home">
-              <Link to="/">Home</Link>
+              <span> <Icon type="home" /> <Link to="/">Home</Link> </span>
             </Menu.Item>
 
             {this.props.isAuthenticated ? (
               <Menu.Item key="leaderboard">
-                <Link to="/leaderboard">Leaderboard</Link>
+                <span> <Icon type="trophy" /> <Link to="/leaderboard">Leaderboard</Link> </span>
               </Menu.Item>
             ) : null}
 
             {this.props.isAuthenticated ? (
-              <Menu.Item key="stats">
-                <Link to="/stats">My Stats</Link>
-              </Menu.Item>
+              <SubMenu title={<span><Icon type="dot-chart" />My Stats</span>}>
+                <Menu.Item key="setting:2">
+                  <Link to="/stats">My Stats</Link>
+                </Menu.Item>
+                <Menu.Item key="setting:1">
+                  <Link to="/stats-entry">Enter Stats</Link>
+                </Menu.Item>
+              </SubMenu>
             ) : null}
-
 
             {this.props.isAuthenticated ? (
               <Menu.Item key="logout">
-                <Link to="/logout">Logout</Link>
+                <span> <Icon type="setting" /> <Link to="/logout">Logout</Link> </span>
               </Menu.Item>
             ) : (
               <Menu.Item key="login">
                 <Link to="/login">Login</Link>
               </Menu.Item>
             )}
-
 
           </Menu>
 

@@ -21,13 +21,24 @@ class Leadboard extends React.Component {
         key: 'name'
       },
       {
-        title: 'total trips',
-        dataIndex: 'totalTrips',
-        key: 'totalTrips'
+        title: 'Event 1 - Carry',
+        dataIndex: '',
+        key: ''
+      },
+      {
+        title: 'Event 2 - Squat',
+        dataIndex: '',
+        key: ''
+      },
+      {
+        title: 'Event 3 - Press',
+        dataIndex: '',
+        key: ''
       }
     ];
+    //   <Table columns={columns} dataSource={this.props.leaderboard} />
     return (
-      <Table columns={columns} dataSource={this.props.leaderboard} />
+      <Table columns={columns} />
     );
   }
 }
